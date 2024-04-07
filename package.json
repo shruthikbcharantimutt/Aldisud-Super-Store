@@ -6,11 +6,35 @@
     "start": "next start"
   },
   "dependencies": {
+    "@ag-grid-community/client-side-row-model": "^31.2.0",
+    "@ag-grid-community/core": "^31.2.0",
+    "@ag-grid-community/react": "^31.2.0",
+    "@ag-grid-community/styles": "^31.2.0",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/material": "^5.15.14",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.18",
+    "ag-grid-react": "^31.2.0",
+    "bootstrap": "^5.3.3",
+    "fs": "^0.0.1-security",
     "next": "latest",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-bootstrap": "^2.10.2",
+    "react-dom": "18.2.0",
+    "react-vis": "^1.12.1",
+    "styled-components": "^6.1.8",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.1/xlsx-0.20.1.tgz"
   },
   "engines": {
     "node": ">=18"
+  },
+  "browser": {
+    "crypto": false,
+    "fs": false,
+    "path": false,
+    "os": false,
+    "net": false,
+    "stream": false,
+    "tls": false
   }
 }
