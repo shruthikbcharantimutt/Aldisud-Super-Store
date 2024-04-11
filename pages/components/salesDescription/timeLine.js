@@ -1,40 +1,55 @@
+import { useEffect, useState } from "react";
 import {
-  XYPlot,
+  LineChart,
+  Line,
   XAxis,
   YAxis,
-  HorizontalGridLines,
-  VerticalGridLines,
-  LineSeries,
-} from "react-vis";
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
 
-const TimeLineGraph = ({data}) => {
-    console.log(data.slice(0, 50))
-    
+const TimeLineGraph = ({ dataset1, dataset2 }) => {
+  //console.log(dataset1,dataset2)
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
   return (
-    <XYPlot width={300} height={300}>
-      <HorizontalGridLines style={{ stroke: "#B7E9ED" }} />
-      <VerticalGridLines style={{ stroke: "#B7E9ED" }} />
-      <XAxis
-        title="Date"
-        style={{
-          line: { stroke: "#ADDDE1" },
-          ticks: { stroke: "#ADDDE1" },
-          text: { stroke: "none", fill: "#6b6b76", fontWeight: 600 },
-        }}
+    <LineChart
+      width={500}
+      height={300}
+      data={dataset1}
+      margin={{
+        top: 5,
+        right: 30,
+        left: 20,
+        bottom: 5,
+      }}
+    >
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="OrderDate" />
+      <YAxis />
+      <Tooltip />
+      <Legend />
+      <Line
+        type="monotone"
+        dataKey="Sales"
+        stroke="#8884d8"
+        activeDot={{ r: 8 }}
       />
-      <YAxis title="Sales" />
-      <LineSeries
-        className="first-series"
-        data={data.slice(0, 5)}
-        style={{
-          strokeLinejoin: "round",
-          strokeWidth: 2,
-          fill: "none",
-        }}
+      <Line
+        type="monotone"
+        dataKey="Profit"
+        stroke="#88c56a"
+        activeDot={{ r: 8 }}
       />
-
-    
-    </XYPlot>
+    </LineChart>
   );
 };
 export default TimeLineGraph;

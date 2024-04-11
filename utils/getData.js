@@ -1,6 +1,6 @@
 import { read, utils } from "xlsx";
 async function getData() {
-  const url = "http://localhost:3000/Superstore.xlsx";
+  const url = "http://localhost:3000/Superstore1.xls";
 
   const response = await fetch(url);
   if (!response.ok) {
@@ -8,7 +8,8 @@ async function getData() {
     throw new Error("Failed to fetch data");
   }
   const data = await response.arrayBuffer();
-  const workbook = read(data);
+  const workbook = read(data,{cellDates: true,
+  });
 
   let responseData = {};
   workbook.SheetNames.forEach((sheet, index) => {
@@ -16,7 +17,7 @@ async function getData() {
     const sheetJson = utils.sheet_to_json(sheetData);
     responseData[sheet] = Object.values(sheetJson);
   });
-  console.log(responseData)
+  
   return responseData;
 }
 export default getData;

@@ -1,8 +1,33 @@
 import BubbleChart from "./bubbleChart";
 import TimelineChart from "./timeline";
 import { Row, Col,Container } from 'react-bootstrap';
-import '../../../styles/Home.module.css'; 
+import '../../../styles/Home.module.css';
+import { useState } from "react"; 
 const DataGraph=({orders}) =>{
+const [timelineParam,setTimeLineParam]=useState("Profit");
+const timelineData=orders.slice(0,12).map((order)=>{
+  return {
+    orderDate:(order["Order Date"]).split("T")[0],
+    daystoShip:  Math.floor((Date.parse(order["Ship Date"]) - Date.parse(order["Order Date"])) / 86400000),
+    profit:(order.Profit).toFixed(2),
+    discount:(order.Discount).toFixed(2),
+    quantity:order.Quantity,
+    sales:(order.Sales).toFixed(2),
+   // quantity:order.Quantity,
+  }
+})
+const bubbleChartData=orders.slice(0,12).map((order)=>{
+ 
+  return {
+   // orderDate:(order["Order Date"]).split("T")[0],
+    //daystoShip:  Math.floor((Date.parse(order["Ship Date"]) - Date.parse(order["Order Date"])) / 86400000),
+    profit:(order.Profit).toFixed(2),
+    //discount:(order.Discount).toFixed(2),
+    quantity:order.Quantity,
+   // sales:(order.Sales).toFixed(2),
+    //quantity:order.Quantity,
+  }
+})
 
   return (
     <Container>
@@ -10,10 +35,10 @@ const DataGraph=({orders}) =>{
      
      <Row className="my-4 ml-auto mr-auto">
       <Col lg={6} className="my-4 ml-auto mr-auto">
-      <TimelineChart/>
+      <TimelineChart data={timelineData}/>
       </Col>
       <Col lg={6} className="my-4 ml-auto mr-auto">
-      <BubbleChart/>
+      <BubbleChart data={bubbleChartData} orders={orders}/>
       </Col>
     </Row>
 

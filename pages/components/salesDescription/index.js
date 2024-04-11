@@ -1,31 +1,31 @@
 import TimeLineGraph from "./timeLine";
-const SalesDescription = ({ orders }) => {
-  let filtered_data = orders.map((order) => {
-    return Object.fromEntries(
-      Object.entries(order).filter(
-        ([key]) => key === "Order Date" || key === "Sales"
-      )
-    );
-  });
-  const isWithinLastMonth = (timestamp) => {
-    const oneMonthAgo = new Date().getTime() - 365 * 24 * 60 * 60 * 1000; // Timestamp one month ago
-    return timestamp >= oneMonthAgo / 1000; // Convert milliseconds to seconds for comparison
-  };
-  [
-    { x: 1, y: 3 },
-    { x: 2, y: 5 },
-    { x: 3, y: 15 },
-    { x: 4, y: 12 },
-  ];
-  const data  = (filtered_data).map((obj) => {
-    return { x: obj["Order Date"], y: obj["Sales"] };
+import RadialChart1 from "./radialChart";
+import PieChartGraph  from "./pieChart";
+import { calculateAverageMonthlyData } from "./../../getaverageData";
+import { filterByYear, sortArrayByDate } from "../../../utils/common";
+
+
+const SalesDescription = ({ lastYearOrders ,returnedOrdersCount}) => {
+  let averageMonthlydataLastYear = calculateAverageMonthlyData(lastYearOrders);
+
+  let graphData1 = Object.keys(averageMonthlydataLastYear).map((elem) => {
+    return {
+      OrderDate: elem,
+      Sales: averageMonthlydataLastYear[elem].averageSales,
+      Profit:averageMonthlydataLastYear[elem].averageProfit,
+    };
   });
 
   
   
+//console.log(count,lastYearOrders.length)
   return (
     <>
-      <TimeLineGraph data={data} />
+      <h2>Data Graph for year 2022 representing Monnths, Average sales and Profit</h2>
+      <TimeLineGraph dataset1={graphData1}/>
+      <h2>Data Graph for year 2022 representing Number of orders Returns</h2>
+      <PieChartGraph returnedOrdersCount={returnedOrdersCount} totalOrders={lastYearOrders.length}/>
+     
     </>
   );
 };

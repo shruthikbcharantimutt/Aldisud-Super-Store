@@ -1,32 +1,83 @@
-'use strict';
+import React, { PureComponent, useEffect, useState } from "react";
+import {
+  ScatterChart,
+  Scatter,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+import Form from "react-bootstrap/Form";
 
-import { XYPlot, XAxis, YAxis, MarkSeries } from 'react-vis';
-const BubbleChart = ({orders}) => {
-  
+const BubbleChart = ({  orders }) => {
+  const selectOption = ["Discount", "Profit", "Quantity", "Sales"];
+  const [xKey, setXkey] = useState(""); 
+  const [yKey, setYkey] = useState("");
+  const [bubbleChartData, setBubbleChartData] = useState([]);
 
-  const data = [
-    { x: 1, y: 10, size: 5 },
-    { x: 2, y: 12, size: 8 },
-    { x: 3, y: 8, size: 12 },
-    { x: 4, y: 15, size: 7 },
-    { x: 5, y: 11, size: 10 },
-  ];
+  const getBubbleChartData = (xKey, yKey) => {
+   
+    return orders.slice(0, 12).map((order) => {
+      return {
+        [xKey]: (order[xKey]),
+        [yKey]: (order[yKey]),
+      };
+    });
+  };
+  useEffect(() => {
+    let data = getBubbleChartData(xKey, yKey);
+    setBubbleChartData(data);
+  }, [xKey, yKey]);
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <XYPlot width={500} height={300} xDomain={[0, 6]} yDomain={[0, 20]}>
-        <XAxis title="X Axis" />
-        <YAxis title="Y Axis" />
-        <MarkSeries
-          data={data}
-          sizeRange={[3, 15]} // Define the range of bubble sizes
-          colorRange={['blue']} // Optional: You can define colors for the bubbles
-        />
-      </XYPlot>
-    </div>
+    <>
+      <div>
+        <Form.Select
+          value={xKey}
+          name="xKey"
+          onChange={(e) => {
+            setXkey(e.target.value);
+          }}
+        >
+          <option>Select X axis key</option>
+          {selectOption.map((x) => {
+            return <option value={x}>{x}</option>;
+          })}
+        </Form.Select>
+        <Form.Select
+          value={yKey}
+          name="yKey"
+          onChange={(e) => {
+            setYkey(e.target.value);
+          }}
+          disabled={xKey ? false : true}
+        >
+          <option>Select Y axis Key</option>
+          {selectOption.map((y) => {
+            if (y != xKey) {
+              return <option value={y}>{y}</option>;
+            }
+          })}
+        </Form.Select>
+      </div>
+      <ResponsiveContainer width="100%" height={400}>
+        <ScatterChart
+          margin={{
+            top: 20,
+            right: 20,
+            bottom: 20,
+            left: 20,
+          }}
+        >
+          <CartesianGrid />
+          <XAxis type="number" dataKey={xKey} label={xKey} name={xKey} />
+          <YAxis type="number" dataKey={yKey} label={yKey} name={yKey} />
+          <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+          <Scatter name="A school" data={bubbleChartData} fill="#8884d8" />
+        </ScatterChart>
+      </ResponsiveContainer>
+    </>
   );
-
-}
+};
 export default BubbleChart;
-
-
