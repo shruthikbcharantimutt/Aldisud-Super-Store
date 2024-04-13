@@ -29,20 +29,24 @@ export function calculateAverageMonthlyData(data) {
         count: 0,
         averageSales:0,
         totalProfit:0,
-        averageProfit:0
+        averageProfit:0,
+        daystoShip:0
       };
     }
-    
+   
+    const  differenceMs = Math.abs(new Date(item["Ship Date"]) - new Date(item["Order Date"]));
+    const differenceDays = Math.ceil(differenceMs / (1000 * 60 * 60 * 24));
     aggregatedData[key].totalSales += item["Sales"];
     aggregatedData[key].totalProfit += item["Profit"];
     aggregatedData[key].count++;
     aggregatedData[key].averageSales=aggregatedData[key].totalSales/30
     aggregatedData[key].averageProfit=aggregatedData[key].totalProfit/30
+    aggregatedData[key].daystoShip=differenceDays
     
     
   });
 
-console.log(aggregatedData)
+//console.log(aggregatedData)
 return aggregatedData
 
 

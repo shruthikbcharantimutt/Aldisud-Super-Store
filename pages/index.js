@@ -5,7 +5,7 @@ import SalesDescription from "./components/salesDescription";
 import { RadialChart } from "react-vis";
 import { filterByYear, sortArrayByDate } from "./../utils/common";
 const Home = ({ superStoreData }) => {
-  console.log("hello");
+ 
   const { lastYearOrders, beforelastYearOrders, orders, people, returns } =
     superStoreData;
 

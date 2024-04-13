@@ -1,7 +1,8 @@
 import { read, utils, writeFile } from "xlsx";
 
-async function addNewRowXLSX() {
-  const url = "http://localhost:3000/Superstore.xlsx";
+async function addNewRowXLSX(newRowData) {
+
+  const url = "http://localhost:3000/Superstore1.xls";
 
   const response = await fetch(url);
   if (!response.ok) {
@@ -13,7 +14,7 @@ async function addNewRowXLSX() {
   const ordersSheetName = workbook.SheetNames[0];
   const sheet = workbook.Sheets[ordersSheetName];
 
-  utils.sheet_add_aoa(sheet, [["new data", 1, 2, 3]], { origin: -1 });
+  utils.sheet_add_aoa(sheet, [Object.values(newRowData)], { origin: -1 });
 
   writeFile(workbook, url);
 }
