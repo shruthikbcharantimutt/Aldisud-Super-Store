@@ -7,10 +7,35 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  //CustomTooltip
 } from "recharts";
+const CustomTooltip = ({ active, payload, label }) => {
+ 
+  if (active && payload && payload.length) {
+  
+   let value;
+   if(payload[0].name=="Sales"){
+    value= `Sale  ${new Intl.NumberFormat('en-US', {  }).format(payload[0].value).replace('.', '')}`
+   }else if(payload[0].name=="ProfitMargin"){
+    value= `Profit in ${ new Intl.NumberFormat('en-US', {  }).format(payload[0].value).replace('.', '')}%`
+   }else if(payload[0].name=="DaystoShip"){
+    value= `Days to Ship: days ${payload[0].value} `
+   }else{
+    value= ` ${payload[0].value}`
+   }
+    return (
+      <div className="custom-tooltip">
+        <p className="label">{`Date: ${label}`}</p>
+        <p className="value">{value}</p>
+      </div>
+    );
+  }
 
-const TimeLineGraph = ({ dataset1, dataset2 }) => {
-  //console.log(dataset1,dataset2)
+  return null;
+};
+
+const TimeLineGraph = ({ dataset1, dataKey,color }) => {
+  console.log(dataset1)
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -22,8 +47,8 @@ const TimeLineGraph = ({ dataset1, dataset2 }) => {
   }
   return (
     <LineChart
-      width={500}
-      height={300}
+      width={600}
+      height={400}
       data={dataset1}
       margin={{
         top: 5,
@@ -34,21 +59,16 @@ const TimeLineGraph = ({ dataset1, dataset2 }) => {
     >
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="OrderDate" />
-      <YAxis />
-      <Tooltip />
+      <YAxis dataKey={dataKey}/>
+      <Tooltip  content={<CustomTooltip />} />
       <Legend />
       <Line
         type="monotone"
-        dataKey="Sales"
-        stroke="#8884d8"
+        dataKey={dataKey}
+        stroke={color}
         activeDot={{ r: 8 }}
       />
-      <Line
-        type="monotone"
-        dataKey="Profit"
-        stroke="#88c56a"
-        activeDot={{ r: 8 }}
-      />
+     
     </LineChart>
   );
 };

@@ -8,7 +8,7 @@ async function getData() {
     throw new Error("Failed to fetch data");
   }
   const data = await response.arrayBuffer();
-  const workbook = read(data,{cellDates: true,
+  const workbook = read(data,{cellDates: true
   });
 
   let responseData = {};

@@ -7,27 +7,34 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  ZAxis,
 } from "recharts";
+import { calculateAverageMonthlyData } from "./../../getaverageData";
 import Form from "react-bootstrap/Form";
 
 const BubbleChart = ({  orders }) => {
+  let averageMonthlydataLastYear = calculateAverageMonthlyData(orders);
+ // Days to ship ,Discount ,profit, profit ratio, Quantity ,returns, sales
   const selectOption = ["Discount", "Profit", "Quantity", "Sales"];
   const [xKey, setXkey] = useState(""); 
   const [yKey, setYkey] = useState("");
   const [bubbleChartData, setBubbleChartData] = useState([]);
-
+ 
   const getBubbleChartData = (xKey, yKey) => {
    
-    return orders.slice(0, 12).map((order) => {
+    return Object.keys(averageMonthlydataLastYear).map((elem) => {
       return {
-        [xKey]: (order[xKey]),
-        [yKey]: (order[yKey]),
+        OrderDate: elem,
+        Sales: averageMonthlydataLastYear[elem].totalSales,
+        Profit:averageMonthlydataLastYear[elem].totalProfit,
       };
     });
   };
+  console.log("mmmmm",getBubbleChartData("totalSales","totalProfit"))
   useEffect(() => {
     let data = getBubbleChartData(xKey, yKey);
     setBubbleChartData(data);
+    
   }, [xKey, yKey]);
 
   return (
@@ -73,6 +80,7 @@ const BubbleChart = ({  orders }) => {
           <CartesianGrid />
           <XAxis type="number" dataKey={xKey} label={xKey} name={xKey} />
           <YAxis type="number" dataKey={yKey} label={yKey} name={yKey} />
+          <ZAxis  type="string" dataKey="OrderID" label="OrderID" name="OrderID" />
           <Tooltip cursor={{ strokeDasharray: "3 3" }} />
           <Scatter name="A school" data={bubbleChartData} fill="#8884d8" />
         </ScatterChart>

@@ -74,9 +74,10 @@ const OrdersTable = ({ orders }) => {
     { field: "State", filter: "agTextColumnFilter" },
     { field: "City", filter: "agTextColumnFilter" },
     { field: "Category" },
-    { field: "Sales", valueFormatter: (p) => "$" + p.value.toFixed(2) },
+    { field: "Sales" },
     { field: "Discount" },
-    { field: "Profit", valueFormatter: (p) => p.value.toFixed(2) + "%" },
+    { field: "Profit" },
+    { field: "DaysToShip" },
   ]);
   useLayoutEffect(() => {
     setRowData(orders);
@@ -113,7 +114,7 @@ const OrdersTable = ({ orders }) => {
     <>
       {isMounted && (
         <Container>
-          <h1>Sales Data</h1>
+          <h1>Sales Data for Year:2022</h1>
           <Row>
             {countryOptions.length && (
               <Col>

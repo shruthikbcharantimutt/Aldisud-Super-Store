@@ -1,60 +1,47 @@
 import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useState } from "react";
-import getData from "../utils/getData";
+import fetchData from "../utils/getDataBackend";
 import SalesDescription from "./components/salesDescription";
 import { RadialChart } from "react-vis";
-import { filterByYear, sortArrayByDate } from "./../utils/common";
-const Home = ({ superStoreData }) => {
+
+
+const Home = ({ responseData }) => {
  
-  const { lastYearOrders, beforelastYearOrders, orders, people, returns } =
-    superStoreData;
-
-  let returnedOrdersCount = 0;
-
-  lastYearOrders.map((order) => {
-    if (
-      returns
-        .map((r) => {
-          return r["Order ID"];
-        })
-        .includes(order["Order ID"])
-    ) {
-      returnedOrdersCount = returnedOrdersCount + 1;
-    }
-  });
-  
+  const { orders, returns } =responseData;
+ 
+ 
   return (
     <>
-      <SalesDescription
-        lastYearOrders={lastYearOrders}
-        returnedOrdersCount={returnedOrdersCount}
+     <SalesDescription
+        orders={orders}
+        returns={returns}
       />
     </>
   );
 };
 
 export async function getServerSideProps() {
-  const data = await getData();
-
-  const { Orders, People, Returns } = data;
+  const data = await fetchData();
+  
+  const orders=data["Orders"];
+  const returns=data["Returns"]
+ 
+ /* const { Orders, People, Returns } = data;
   const serializedData = Orders.map((order) => ({
     ...order,
     "Order Date": order["Order Date"].toISOString(),
     "Ship Date": order["Ship Date"].toISOString(),
   }));
-  const lastYearOrders = filterByYear(serializedData, 2022);
-  const beforelastYearOrders = filterByYear(serializedData, 2021);
+ 
+  const beforelastYearOrders = filterByYear(serializedData, 2021);*/
 
-  const superStoreData = {
-    lastYearOrders: lastYearOrders,
-    beforelastYearOrders: beforelastYearOrders,
-    orders: serializedData,
-    people: People,
-    returns: Returns,
+  const responseData = {
+    "orders":JSON.parse(orders),
+    'returns':JSON.parse(returns)
   };
   return {
     props: {
-      superStoreData,
+      responseData
     },
   };
 }
