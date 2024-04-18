@@ -9,7 +9,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import CustomToolTip from "../../../utils/common";
+import {CustomTooltip} from "../../../utils/common"
 import { Row, Col } from "react-bootstrap";
 
 const TimelineChart = ({ data }) => {

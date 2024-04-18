@@ -5,12 +5,8 @@ export const fetchData = async () => {
   return response.data;
 };
 
-export const writeToExcel = async () => {
-  let data = {
-    Name: ["John", "Anna", "Peter", "Linda"],
-    Age: [28, 35, 29, 42],
-    City: ["New York", "Paris", "Berlin", "London"],
-  };
+export const writeToExcel = async (data) => {
+  
   const response = await axios.post(
     "http://localhost:5000/api/write_to_excel",
     data

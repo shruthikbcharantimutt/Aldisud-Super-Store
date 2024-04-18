@@ -17,7 +17,7 @@ export function getUniqueElementsByKey(array, key) {
 }
 export function getSerializedData(orders,returns){
   const returnsData=returns.map((r) => {return r["Order ID"]});
- return orders.map((order) => ({
+ let data= orders.map((order) => ({
     ...order, 
     daysToShip:  Math.floor((Date.parse(order["Ship Date"]) - Date.parse(order["Order Date"])) / 86400000),
     profitRatio: (parseFloat(parseInt(order["Profit"])/parseInt(order["Sales"]))*100),
@@ -25,4 +25,32 @@ export function getSerializedData(orders,returns){
     "Profit":parseInt(order["Profit"].toString().replace('.','')),
     returns:(returnsData.includes(order["Order ID"]))?1:0
   }));
+  return sortArrayByDate(data)
 }
+export const CustomTooltip = ({ active, payload, label }) => {
+  if (active && payload && payload.length) {
+    let value;
+    if (payload[0].name == "Sales" ) {
+      value = `Sales in $ ${new Intl.NumberFormat("en-US", {})
+        .format(payload[0].value)
+        .replace(".", "")}`;
+    } else  if (payload[0].name == "Profit" ) {
+      value = `Profit in $  ${new Intl.NumberFormat("en-US", {})
+        .format(payload[0].value)
+        .replace(".", "")}`;
+    } else if (payload[0].name == "profitRatio") {
+      value = `Profit Ratio  ${payload[0].value}%`;
+    } else if (payload[0].name == "daysToShip") {
+      value = `Days to Ship: days ${payload[0].value} `;
+    } else {
+      value = ` ${payload[0].value}`;
+    }
+    return (
+      <div className="custom-tooltip" style={{"background":"rgb(150, 150, 88)",padding:"8px",borderRadius:"8px"}}>
+        <p className="label">{`Date: ${label}`}</p>
+        <p className="value">{value}</p>
+      </div>
+    );
+  }
+  return null;
+};

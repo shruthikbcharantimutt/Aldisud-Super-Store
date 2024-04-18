@@ -11,6 +11,7 @@ import {
 } from "recharts";
 import { Row, Col } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
+import { CustomTooltip } from "../../../utils/common";
 
 const DualAxisChart = ({ data }) => {
   const [isMounted, setIsMounted] = useState(false);
@@ -127,6 +128,7 @@ const DualAxisChart = ({ data }) => {
         >
           <CartesianGrid stroke="#f5f5f5" />
           <XAxis dataKey="orderDate" />
+          <Tooltip />
           <YAxis
             yAxisId="left"
             orientation="left"

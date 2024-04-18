@@ -13,6 +13,7 @@ import "@ag-grid-community/styles/ag-theme-quartz.css";
 import { ModuleRegistry } from "@ag-grid-community/core";
 import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
 import AddNewSales from "./addNewSales";
+import { writeToExcel } from "../../../utils/getDataBackend";
 import { getUniqueElementsByKey } from "../../../utils/common";
 import addNewRowXLSX from "../../../utils/addNewRowXLSX";
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
@@ -32,7 +33,7 @@ const OrdersTable = ({ orders }) => {
   const [cityOptions, setCityOptions] = useState(
     getUniqueElementsByKey(rowData, "City")
   );
-  
+
   const getFormData = (formData) => {
     setNewRowData(formData);
   };
@@ -100,11 +101,14 @@ const OrdersTable = ({ orders }) => {
 
   const addNewRow = () => {
     console.log("newRowData", newRowData);
-    addNewRowXLSX(newRowData)
-    if (!rowData.map(obj => obj["Order ID"]).includes(newRowData["Order ID"])) {
+    // addNewRowXLSX(newRowData)
+    if (
+      !rowData.map((obj) => obj["Order ID"]).includes(newRowData["Order ID"])
+    ) {
       setRowData([...rowData, newRowData]);
-    }else{
-      alert("Item with this Order Id is already created")
+      //writeToExcel(newRowData)
+    } else {
+      alert("Item with this Order Id is already created");
     }
 
     handleClose();
@@ -126,7 +130,11 @@ const OrdersTable = ({ orders }) => {
                 >
                   <option value="All">All</option>
                   {countryOptions?.map((country) => {
-                    return <option value={country}>{country}</option>;
+                    return (
+                      <option key={country} value={country}>
+                        {country}
+                      </option>
+                    );
                   })}
                 </select>
               </Col>

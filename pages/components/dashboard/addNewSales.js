@@ -1,31 +1,33 @@
-import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import React, { useState } from "react";
+import { Form } from "react-bootstrap";
 
-const AddNewSales = ({getFormData}) => {
+const AddNewSales = ({ getFormData }) => {
   // State variables to hold form data
-  const [formData, setFormData] = useState({
-    "Row ID": 849,
-    "Order ID": "",
-    "Order Date": "2021-12-31T23:00:00.000Z",
-    "Ship Date": "2022-01-05T23:00:00.000Z",
-    "Ship Mode": "Standard Class",
-    "Customer ID": "GA-14725",
-    "Customer Name": "",
-    "Segment": "Consumer",
-    "Country/Region": "United States",
-    "City": "Lorain",
-    "State": "Ohio",
-    "Postal Code": 44052,
-    "Region": "East",
-    "Product ID": "FUR-FU-10003878",
-    "Category": "",
-    "Sub-Category": "Furnishings",
-    "Product Name": "Linden 10\" Round Wall Clock, Black",
-    "Sales": "",
-    "Quantity": 4,
-    "Discount": 0.2,
-    "Profit":""
-});
+  const [formData, setFormData] = useState([
+    {
+      "Row ID": 849,
+      "Order ID": "",
+      "Order Date": "2021-12-31T23:00:00.000Z",
+      "Ship Date": "2022-01-05T23:00:00.000Z",
+      "Ship Mode": "Standard Class",
+      "Customer ID": "GA-14725",
+      "Customer Name": "",
+      Segment: "Consumer",
+      "Country/Region": "United States",
+      City: "Lorain",
+      State: "Ohio",
+      "Postal Code": 44052,
+      Region: "East",
+      "Product ID": "FUR-FU-10003878",
+      Category: "",
+      "Sub-Category": "Furnishings",
+      "Product Name": 'Linden 10" Round Wall Clock, Black',
+      Sales: "",
+      Quantity: 4,
+      Discount: 0.2,
+      Profit: "",
+    },
+  ]);
 
   // Event handler for form input changes
   const handleChange = (e) => {
@@ -34,25 +36,17 @@ const AddNewSales = ({getFormData}) => {
       ...formData,
       [name]: value,
     });
-    getFormData(formData)
+    getFormData(formData);
   };
 
   // Event handler for form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Do something with the form data, e.g., submit to backend or perform validation
-   
-    // Reset the form fields after submission
-   /* setFormData({
-      firstName: '',
-      lastName: '',
-      email: '',
-    });*/
   };
 
   return (
     <Form onSubmit={handleSubmit}>
-     <Form.Group controlId="Order ID">
+      <Form.Group controlId="Order ID">
         <Form.Label>Order Id</Form.Label>
         <Form.Control
           type="text"
@@ -104,13 +98,6 @@ const AddNewSales = ({getFormData}) => {
           onChange={handleChange}
         />
       </Form.Group>
-
-   
-  
-
-      <Button variant="primary" type="submit">
-        Submit
-      </Button>
     </Form>
   );
 };
