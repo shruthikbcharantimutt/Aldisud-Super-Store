@@ -15,13 +15,14 @@ export function getUniqueElementsByKey(array, key) {
   const uniqueValues = [...new Set(values)]; // Get unique values using Set
   return uniqueValues;
 }
-export function getSerializedData(orders){
-  
+export function getSerializedData(orders,returns){
+  const returnsData=returns.map((r) => {return r["Order ID"]});
  return orders.map((order) => ({
-    ...order,
+    ...order, 
     daysToShip:  Math.floor((Date.parse(order["Ship Date"]) - Date.parse(order["Order Date"])) / 86400000),
-    profitRatio: (order["Profit"]/order["Sales"])*100,
+    profitRatio: (parseFloat(parseInt(order["Profit"])/parseInt(order["Sales"]))*100),
     "Sales":parseInt(order["Sales"].toString().replace('.','')),
     "Profit":parseInt(order["Profit"].toString().replace('.','')),
+    returns:(returnsData.includes(order["Order ID"]))?1:0
   }));
 }

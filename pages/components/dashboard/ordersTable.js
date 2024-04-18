@@ -32,7 +32,7 @@ const OrdersTable = ({ orders }) => {
   const [cityOptions, setCityOptions] = useState(
     getUniqueElementsByKey(rowData, "City")
   );
-  console.log(countryOptions, stateOptions, cityOptions);
+  
   const getFormData = (formData) => {
     setNewRowData(formData);
   };
@@ -77,7 +77,7 @@ const OrdersTable = ({ orders }) => {
     { field: "Sales" },
     { field: "Discount" },
     { field: "Profit" },
-    { field: "DaysToShip" },
+    { field: "daysToShip" },
   ]);
   useLayoutEffect(() => {
     setRowData(orders);

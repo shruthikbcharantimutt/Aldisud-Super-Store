@@ -1,14 +1,3 @@
-import { AgGridReact } from "ag-grid-react";
-
-// Example JSON data
-const jsonData = [
-  { "date": "2023-10-15", "value": 10 },
-  { "date": "2023-10-20", "value": 20 },
-  { "date": "2023-11-08", "value": 15 },
-  { "date": "2023-11-10", "value": 25 },
-  { "date": "2023-12-05", "value": 30 }
-];
-
 // Function to calculate average monthly data
 export function calculateAverageMonthlyData(data) {
   const aggregatedData = {};
@@ -27,10 +16,12 @@ export function calculateAverageMonthlyData(data) {
         averageSales:0,
         totalProfit:0,
         profitRatio:0,
-        daysToShip:0
+        daysToShip:0,
+        discount:0,
+        quantity:0,
+        returns:0
       };
     }
-   
    
     aggregatedData[key].totalSales += item["Sales"];
     aggregatedData[key].totalProfit += item["Profit"];
@@ -38,29 +29,17 @@ export function calculateAverageMonthlyData(data) {
     //aggregatedData[key].averageSales=aggregatedData[key].totalSales/30
     aggregatedData[key].profitRatio +=(item.profitRatio)
     aggregatedData[key].daysToShip+=item["daysToShip"]
+    aggregatedData[key].discount+=item["Discount"]
+    aggregatedData[key].quantity+=item["Quantity"]
+    aggregatedData[key].returns+=item.returns
     
     
   });
-
-
-
-//console.log(aggregatedData)
-return aggregatedData
-
-
-  // Calculate average for each month
-  /*const averageMonthlyData = {};
-  Object.entries(aggregatedData).forEach(([key, value]) => {
-    const [month, year] = key.split(' ');
-    const daysInMonth = new Date(year, new Date(Date.parse(month + " 1, " + year)).getMonth() + 1, 0).getDate();
-    averageMonthlyData[key] = value.total / daysInMonth;
-  });
-  console.log(averageMonthlyData);
-  return averageMonthlyData;*/
+return aggregatedData;
 }
 
 
-// Calculate average monthly data
+// Calculate average Yearly data
 
 
 export function calculateAverageYearlyData(data) {
@@ -79,7 +58,10 @@ export function calculateAverageYearlyData(data) {
         averageSales:0,
         totalProfit:0,
         profitMargin:0,
-        daystoShip:0
+        daysToShip:0,
+        discount:0,
+        quantity:0,
+        returns:0
       };
     }
    
@@ -89,8 +71,11 @@ export function calculateAverageYearlyData(data) {
     aggregatedData[key].totalProfit += item["Profit"];
     aggregatedData[key].count++;
     //aggregatedData[key].averageSales=aggregatedData[key].totalSales/30
-    aggregatedData[key].profitRatio=(aggregatedData[key].totalProfit*100/aggregatedData[key].totalSales)
-    aggregatedData[key].daystoShip=differenceDays
+    aggregatedData[key].profitRatio+=(item.profitRatio)
+    aggregatedData[key].daysToShip=differenceDays;
+    aggregatedData[key].discount+=item["Discount"]
+    aggregatedData[key].quantity+=item["Quantity"]
+    aggregatedData[key].returns+=item.returns
     
     
   });
@@ -115,7 +100,10 @@ export function calculateAverageQuarterData(data) {
         averageSales:0,
         totalProfit:0,
         profitMargin:0,
-        daystoShip:0
+        daysToShip:0,
+        discount:0,
+        quantity:0,
+        returns:0
       };
     }
    
@@ -125,8 +113,11 @@ export function calculateAverageQuarterData(data) {
     aggregatedData[key].totalProfit += item["Profit"];
     aggregatedData[key].count++;
     //aggregatedData[key].averageSales=aggregatedData[key].totalSales/30
-    aggregatedData[key].profitRatio=(aggregatedData[key].totalProfit*100/aggregatedData[key].totalSales)
-    aggregatedData[key].daystoShip=differenceDays
+    aggregatedData[key].profitRatio+=(item.profitRatio)
+    aggregatedData[key].daysToShip+=differenceDays;
+    aggregatedData[key].discount+=item["Discount"]
+    aggregatedData[key].quantity+=item["Quantity"]
+    aggregatedData[key].returns+=item.returns
     
     
   });
@@ -151,7 +142,10 @@ export function calculateAverageWeeklyData(data) {
         averageSales:0,
         totalProfit:0,
         profitMargin:0,
-        daystoShip:0
+        daysToShip:0,
+        discount:0,
+        quantity:0,
+        returns:0
       };
     }
    
@@ -161,8 +155,11 @@ export function calculateAverageWeeklyData(data) {
     aggregatedData[key].totalProfit += item["Profit"];
     aggregatedData[key].count++;
     //aggregatedData[key].averageSales=aggregatedData[key].totalSales/30
-    aggregatedData[key].profitRatio=(aggregatedData[key].totalProfit*100/aggregatedData[key].totalSales)
-    aggregatedData[key].daystoShip=differenceDays
+    aggregatedData[key].profitRatio+=(item.profitRatio)
+    aggregatedData[key].daysToShip=differenceDays;
+    aggregatedData[key].discount+=item["Discount"]
+    aggregatedData[key].quantity+=item["Quantity"]
+    aggregatedData[key].returns+=item.returns
     
     
   });

@@ -1,5 +1,4 @@
 import TimeLineGraph from "./timeLine";
-import AreaGraph from "./areaChart";
 import PieChartGraph from "./pieChart";
 import { calculateAverageMonthlyData,calculateAverageYearlyData, calculateAverageQuarterData,calculateAverageWeeklyData} from "./../../getaverageData";
 import React, { useState, useEffect, useMemo } from "react";
@@ -7,10 +6,9 @@ import { Row, Col } from "react-bootstrap";
 import { filterByYear, sortArrayByDate,getSerializedData } from "../../../utils/common";
 
 const SalesDescription = ({ orders,returns }) => {
-  const serializedData=getSerializedData(orders)
+  const serializedData=getSerializedData(orders,returns)
   const lastYearOrders = filterByYear(serializedData, 2022);
   const averageMonthlydataLastYear = calculateAverageMonthlyData(lastYearOrders);
-  
   const [isMounted, setIsMounted] = useState(false);
   const saleData = Object.keys(averageMonthlydataLastYear).map((elem) => {
     return {
@@ -26,20 +24,23 @@ const SalesDescription = ({ orders,returns }) => {
       Profit: averageMonthlydataLastYear[elem].totalProfit,
     };
   });
- const profitRatioData = Object.keys(averageMonthlydataLastYear).map((elem) => {
+  
+  const profitRatioData = Object.keys(averageMonthlydataLastYear).map((elem) => {
     return {
       OrderDate: elem,
-      profitRatio: (averageMonthlydataLastYear[elem].profitRatio/averageMonthlydataLastYear[elem].count).toFixed(2),
+      profitRatio: (averageMonthlydataLastYear[elem].profitRatio/averageMonthlydataLastYear[elem].count),
+      
     };
   });
- 
+
+
+
   const daysToShipData = Object.keys(averageMonthlydataLastYear).map((elem) => {
     return {
       OrderDate: elem,
       daysToShip:parseInt(averageMonthlydataLastYear[elem].daysToShip/averageMonthlydataLastYear[elem].count),
     };
   });
-
   let returnedOrdersCount = 0;
 
   lastYearOrders.map((order) => {
@@ -84,7 +85,7 @@ const SalesDescription = ({ orders,returns }) => {
         <Col className="p-4">
         <TimeLineGraph
             dataset1={profitRatioData}
-            dataKey="ProfitRatioData"
+            dataKey="profitRatio"
             color="#8884d8"
           />
         </Col>

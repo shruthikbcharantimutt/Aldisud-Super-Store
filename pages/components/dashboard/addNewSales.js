@@ -34,7 +34,6 @@ const AddNewSales = ({getFormData}) => {
       ...formData,
       [name]: value,
     });
-  //  console.log('Form data:', formData);
     getFormData(formData)
   };
 
@@ -42,7 +41,7 @@ const AddNewSales = ({getFormData}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Do something with the form data, e.g., submit to backend or perform validation
-    //console.log('Form data:', formData);
+   
     // Reset the form fields after submission
    /* setFormData({
       firstName: '',

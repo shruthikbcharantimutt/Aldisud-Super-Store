@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 import pandas as pd
@@ -28,15 +28,33 @@ def get_data():
    
     return json_data
  
-@app.route('/api/data1')
-def get_data_Orders():
-   # xls = pd.read_excel('Superstore1.xls')
+@app.route('/api/write_to_excel', methods=['POST'])
+def write_to_excel():
+    print("entered")
+    # Get data from the request
+    #data = request.json.get('data')
+    #excel_file_path = request.json.get('Superstore1.xls')
    
-    df = pd.read_excel('Superstore1.xls')
-    json_data = df.to_json(orient='records')
-    data=json.dumps(json_data)
-    return data
 
 
+    # Check if data and excel_file_path are provided
+    #if not data or not excel_file_path:
+        #return jsonify({'error': 'Data and excel_file_path are required.'}), 400
+
+    #try:
+        # Convert data to DataFrame
+        #df = pd.DataFrame(data)
+
+        # Open the Excel file for writing
+        #with pd.ExcelWriter(excel_file_path, mode='a', engine='openpyxl') as writer:
+            # Write DataFrame to the existing Excel file
+           # df.to_excel(writer, sheet_name='Sheet1', index=False)  # Set index=False if you don't want the index to be written
+
+    return jsonify({'message': 'Data successfully written to Excel file.'}), 200
+
+    #except Exception as e:
+        #return jsonify({'error': str(e)}), 500
+
+ 
 if __name__ == '__main__':
     app.run(debug=True)

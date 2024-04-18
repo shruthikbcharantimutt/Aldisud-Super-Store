@@ -1,8 +1,9 @@
 import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useState } from "react";
-import fetchData from "../utils/getDataBackend";
+import  {fetchData,writeToExcel}  from "../utils/getDataBackend";
 import SalesDescription from "./components/salesDescription";
 import { RadialChart } from "react-vis";
+import { filterByYear, sortArrayByDate,getSerializedData } from "./../utils/common";
 
 
 const Home = ({ responseData }) => {
@@ -23,21 +24,15 @@ const Home = ({ responseData }) => {
 export async function getServerSideProps() {
   const data = await fetchData();
   
-  const orders=data["Orders"];
-  const returns=data["Returns"]
- 
- /* const { Orders, People, Returns } = data;
-  const serializedData = Orders.map((order) => ({
-    ...order,
-    "Order Date": order["Order Date"].toISOString(),
-    "Ship Date": order["Ship Date"].toISOString(),
-  }));
- 
-  const beforelastYearOrders = filterByYear(serializedData, 2021);*/
+  const orders=JSON.parse(data["Orders"]);
+  const returns=JSON.parse(data["Returns"]);
+  const serializedData =getSerializedData(orders,returns)
+
+  //const beforelastYearOrders = filterByYear(serializedData, 2021);*/
 
   const responseData = {
-    "orders":JSON.parse(orders),
-    'returns':JSON.parse(returns)
+    orders:serializedData,
+    returns:returns
   };
   return {
     props: {

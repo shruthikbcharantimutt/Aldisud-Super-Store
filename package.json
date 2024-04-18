@@ -32,6 +32,7 @@
     "react-vis": "^1.12.1",
     "recharts": "^2.12.4",
     "styled-components": "^6.1.8",
+    "swr": "^2.2.5",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.1/xlsx-0.20.1.tgz"
   },
   "engines": {
