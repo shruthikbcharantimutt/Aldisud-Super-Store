@@ -57,22 +57,20 @@ export function calculateAverageYearlyData(data) {
         count: 0,
         averageSales:0,
         totalProfit:0,
-        profitMargin:0,
+        profitRatio:0,
         daysToShip:0,
         discount:0,
         quantity:0,
         returns:0
       };
     }
-   
-    const  differenceMs = Math.abs(new Date(item["Ship Date"]) - new Date(item["Order Date"]));
-    const differenceDays = Math.ceil(differenceMs / (1000 * 60 * 60 * 24));
+    
     aggregatedData[key].totalSales += item["Sales"];
     aggregatedData[key].totalProfit += item["Profit"];
     aggregatedData[key].count++;
     //aggregatedData[key].averageSales=aggregatedData[key].totalSales/30
     aggregatedData[key].profitRatio+=(item.profitRatio)
-    aggregatedData[key].daysToShip=differenceDays;
+    aggregatedData[key].daysToShip+=item["daysToShip"]
     aggregatedData[key].discount+=item["Discount"]
     aggregatedData[key].quantity+=item["Quantity"]
     aggregatedData[key].returns+=item.returns
@@ -99,16 +97,15 @@ export function calculateAverageQuarterData(data) {
         count: 0,
         averageSales:0,
         totalProfit:0,
-        profitMargin:0,
+        profitRatio:0,
         daysToShip:0,
         discount:0,
         quantity:0,
         returns:0
       };
     }
+    
    
-    const  differenceMs = Math.abs(new Date(item["Ship Date"]) - new Date(item["Order Date"]));
-    const differenceDays = Math.ceil(differenceMs / (1000 * 60 * 60 * 24));
     aggregatedData[key].totalSales += item["Sales"];
     aggregatedData[key].totalProfit += item["Profit"];
     aggregatedData[key].count++;
@@ -141,7 +138,7 @@ export function calculateAverageWeeklyData(data) {
         count: 0,
         averageSales:0,
         totalProfit:0,
-        profitMargin:0,
+        profitRatio:0,
         daysToShip:0,
         discount:0,
         quantity:0,
@@ -149,14 +146,13 @@ export function calculateAverageWeeklyData(data) {
       };
     }
    
-    const  differenceMs = Math.abs(new Date(item["Ship Date"]) - new Date(item["Order Date"]));
-    const differenceDays = Math.ceil(differenceMs / (1000 * 60 * 60 * 24));
+   
     aggregatedData[key].totalSales += item["Sales"];
     aggregatedData[key].totalProfit += item["Profit"];
     aggregatedData[key].count++;
     //aggregatedData[key].averageSales=aggregatedData[key].totalSales/30
     aggregatedData[key].profitRatio+=(item.profitRatio)
-    aggregatedData[key].daysToShip=differenceDays;
+    aggregatedData[key].daysToShip+=item["daysToShip"]
     aggregatedData[key].discount+=item["Discount"]
     aggregatedData[key].quantity+=item["Quantity"]
     aggregatedData[key].returns+=item.returns

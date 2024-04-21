@@ -5,28 +5,33 @@ const AddNewSales = ({ getFormData }) => {
   // State variables to hold form data
   const [formData, setFormData] = useState([
     {
-      "Row ID": 849,
-      "Order ID": "",
-      "Order Date": "2021-12-31T23:00:00.000Z",
-      "Ship Date": "2022-01-05T23:00:00.000Z",
-      "Ship Mode": "Standard Class",
-      "Customer ID": "GA-14725",
-      "Customer Name": "",
-      Segment: "Consumer",
-      "Country/Region": "United States",
-      City: "Lorain",
-      State: "Ohio",
-      "Postal Code": 44052,
-      Region: "East",
-      "Product ID": "FUR-FU-10003878",
-      Category: "",
-      "Sub-Category": "Furnishings",
-      "Product Name": 'Linden 10" Round Wall Clock, Black',
+      'Row ID': 849,
+      'Order ID': '',
+      'Order Date': '2022-01-01',
+      'Ship Date': '2022-01-06',
+      'Ship Mode': 'Standard Class',
+      'Customer ID': 'GA-14725',
+      'Customer Name': '',
+      Segment: 'Consumer',
+      'Country/Region': 'United States',
+      City: 'Lorain',
+      State: 'Ohio',
+      'Postal Code': 44052,
+      Region: 'East',
+      'Product ID': 'FUR-FU-10003878',
+      Category: '',
+      'Sub-Category': 'Furnishings',
+      'Product Name': 'Linden 10" Round Wall Clock, Black',
       Sales: "",
       Quantity: 4,
       Discount: 0.2,
       Profit: "",
-    },
+      daysToShip: 5,
+      profitRatio: 16.666666666666664,
+      returns: 0
+    }
+  
+    
   ]);
 
   // Event handler for form input changes

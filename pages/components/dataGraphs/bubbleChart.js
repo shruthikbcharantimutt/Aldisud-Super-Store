@@ -15,7 +15,7 @@ import { CustomTooltip } from "../../../utils/common";
 
 const DualAxisChart = ({ data }) => {
   const [isMounted, setIsMounted] = useState(false);
-   
+
   const bubbleChart = Object.keys(data).map((elem) => {
     return {
       orderDate: elem,
@@ -23,20 +23,20 @@ const DualAxisChart = ({ data }) => {
       discount: (data[elem].discount / data[elem].count).toFixed(2),
       quantity: Math.round(data[elem].quantity / data[elem].count),
       profitRatio: (data[elem].profitRatio / data[elem].count).toFixed(2),
-      returns:data[elem].returns,
+      returns: data[elem].returns,
       totalSales: data[elem].totalSales,
       totalProfit: data[elem].totalProfit,
     };
   });
-  
+
   const selectOption = [
     "daystoShip",
     "discount",
     "totalProfit",
     "totalSales",
     "quantity",
-    // "Returns",
-    "totalSales",
+     "returns",
+    "profitRatio",
   ];
   const [xKey, setXkey] = useState();
   const [yKey, setYkey] = useState();
@@ -44,8 +44,9 @@ const DualAxisChart = ({ data }) => {
 
   const getBubbleChartData = (xKey, yKey) => {
     return Object.keys(bubbleChart).map((elem) => {
+      console.log(bubbleChart);
       return {
-        OrderDate: elem,
+        OrderDate: bubbleChart[elem].orderDate,
         [xKey]: bubbleChart[elem][xKey],
         [yKey]: bubbleChart[elem][yKey],
       };
@@ -61,7 +62,7 @@ const DualAxisChart = ({ data }) => {
   if (!isMounted) {
     return null;
   }
-
+  // console.log("yyyy",bubbleChartData)
   return (
     <>
       <div>
@@ -127,7 +128,7 @@ const DualAxisChart = ({ data }) => {
           }}
         >
           <CartesianGrid stroke="#f5f5f5" />
-          <XAxis dataKey="orderDate" />
+          <XAxis dataKey="OrderDate" scale="date" />
           <Tooltip />
           <YAxis
             yAxisId="left"

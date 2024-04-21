@@ -14,11 +14,12 @@ import { ModuleRegistry } from "@ag-grid-community/core";
 import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
 import AddNewSales from "./addNewSales";
 import { writeToExcel } from "../../../utils/getDataBackend";
-import { getUniqueElementsByKey } from "../../../utils/common";
+import { getUniqueElementsByKey, readableNumber } from "../../../utils/common";
 import addNewRowXLSX from "../../../utils/addNewRowXLSX";
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
 const OrdersTable = ({ orders }) => {
+ 
   const [rowData, setRowData] = useState([]);
   const [filters, setFilters] = useState({});
   const [newRowData, setNewRowData] = useState(orders);
@@ -68,16 +69,16 @@ const OrdersTable = ({ orders }) => {
   };
 
   const [columnDefs, setColumnDefs] = useState([
-    { field: "Order Date", valueFormatter: (p) => p.value.split("T")[0] },
+    { field: "Order Date", valueFormatter: (p) => p?.value?.split("T")[0] },
     { field: "Order ID" },
     { field: "Customer Name" },
     { field: "Country/Region", filter: "agTextColumnFilter" },
     { field: "State", filter: "agTextColumnFilter" },
     { field: "City", filter: "agTextColumnFilter" },
     { field: "Category" },
-    { field: "Sales" },
+    { field: "Sales", valueFormatter: (p) => readableNumber(p.value) },
     { field: "Discount" },
-    { field: "Profit" },
+    { field: "Profit", valueFormatter: (p) => readableNumber(p.value) },
     { field: "daysToShip" },
   ]);
   useLayoutEffect(() => {
@@ -101,11 +102,13 @@ const OrdersTable = ({ orders }) => {
 
   const addNewRow = () => {
     console.log("newRowData", newRowData);
+    
     // addNewRowXLSX(newRowData)
     if (
       !rowData.map((obj) => obj["Order ID"]).includes(newRowData["Order ID"])
     ) {
       setRowData([...rowData, newRowData]);
+      alert("Item created!!!!");
       //writeToExcel(newRowData)
     } else {
       alert("Item with this Order Id is already created");
@@ -171,7 +174,7 @@ const OrdersTable = ({ orders }) => {
               )}{" "}
             </Col>
           </Row>
-          <div className="ag-theme-quartz  my-10" style={{ height: 500 }}>
+          <div className="ag-theme-quartz  my-10" style={{ height: 450, margin:"15px" }}>
             <AgGridReact
               rowData={rowData}
               columnDefs={columnDefs}
@@ -183,7 +186,7 @@ const OrdersTable = ({ orders }) => {
               paginationPageSize={50}
               paginationPageSizeSelector={[10, 25, 50]}
             />
-            <Button variant="info" onClick={handleShow}>
+            <Button variant="info" className="my-2" onClick={handleShow}>
               Add New Sales Data
             </Button>
 

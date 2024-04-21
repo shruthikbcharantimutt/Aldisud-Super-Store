@@ -1,12 +1,6 @@
 import OrdersTable from "./ordersTable";
-const Dashboard=({orders}) =>{
-
-  return (
-    <>
-      <OrdersTable orders={orders}/>
-    </>
-  );
-}
-
+const Dashboard = ({ orders }) => {
+  return <OrdersTable orders={orders} />;
+};
 
 export default Dashboard;

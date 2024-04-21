@@ -27,8 +27,8 @@ const Header = () => {
               className="mx-2"
               onClick={() => router.push("/")}
             >
-              <FontAwesomeIcon className="mr-4" icon={faHouse} />
-              Home
+              <FontAwesomeIcon className="mr-4" icon={faHouse} />{" "}
+              <b className="mx-1">Home</b>
             </Nav.Link>
             <Nav.Link
               href="/table"
@@ -36,7 +36,7 @@ const Header = () => {
               onClick={() => router.push("/table")}
             >
               <FontAwesomeIcon className="mr-4" icon={faTableColumns} />
-              Table
+              <b className="mx-1">Table</b>
             </Nav.Link>
             <Nav.Link
               href="/graph"
@@ -44,7 +44,7 @@ const Header = () => {
               onClick={() => router.push("/graph")}
             >
               <FontAwesomeIcon className="mr-4" icon={faChartLine} />
-              Graph
+              <b className="mx-1">Graph</b>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

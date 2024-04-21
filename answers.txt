@@ -1,0 +1,35 @@
+1. Choosing the right libraries. 
+   Recharts,AG Grid and to use Sheet JS or Python Panda
+2. Reading the data from Excel especially Dates and numbers.
+3. Adding Data Granularity. 
+4. Was not sure above how to calculate "Profit Ratio ","accumulated Sales" etc
+5. formatting data so that it fits into excel.
+
+
+Limitations:
+
+Graph can be implemented in better reable way.
+Giving the user full acess to select the data he wants to see.
+Adding this Data in DB so that we dont have to read Excel everytime
+Filtering of Data can be handled in better way.
+Some research can be done in terms of improving performance
+
+How app can be extended:
+Adding the data into DB.So that CRUD operations can be handled easily.
+Example :
+Adding new sales data (single) using UI form.
+Adding bulk import feature:where a can admin can import a excel and add the sales to an existing DB.
+Creating different user roles:Admin, Reginal Manager etc
+Once a sale person logins into the application , he can view the data where he is in charge.
+A feature can be added delete the data which is no longer required.
+A feature to purge orders based on time.
+
+Flexibitily should be given to user to select the data he wants to see in graphs 
+
+A descriptive data for the month /year can be calcuted:
+Which category made good business?
+From State/city we got most orders from?
+Which Item was returned most etc.
+
+
+

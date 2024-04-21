@@ -65,12 +65,12 @@ const DataGraph = ({ orders }) => {
       </Row>
       <Row>
         <Col lg={6} className="my-4 ml-auto mr-auto">
-          <DualAxisChart data={graphData} />
+          <TimelineChart data={graphData} />
         </Col>
       </Row>
       <Row className="my-4 ml-auto mr-auto">
         <Col lg={6} className="my-4 ml-auto mr-auto">
-          <TimelineChart data={graphData} />
+          <DualAxisChart data={graphData} />
         </Col>
       </Row>
     </Container>

@@ -1,15 +1,5 @@
 import React, { PureComponent, useState, useEffect } from "react";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
-import {CustomTooltip} from "../../../utils/common"
+import { LineChart, Line, XAxis, YAxis, Tooltip, Legend } from "recharts";
 import { Row, Col } from "react-bootstrap";
 
 const TimelineChart = ({ data }) => {
@@ -29,7 +19,6 @@ const TimelineChart = ({ data }) => {
       totalProfit: data[elem].totalProfit,
     };
   });
-  console.log("eeeee",timelineData)
 
   if (!isMounted) {
     return null;
@@ -51,7 +40,7 @@ const TimelineChart = ({ data }) => {
           <XAxis dataKey="orderDate" />
 
           <YAxis fontSize="12px" />
-          <Tooltip/>
+          <Tooltip />
           <Legend />
 
           <Line

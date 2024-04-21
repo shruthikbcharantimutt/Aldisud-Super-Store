@@ -8,7 +8,7 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-import {CustomTooltip} from "../../../utils/common"
+import { CustomTooltip } from "../../../utils/common";
 
 const TimeLineGraph = ({ dataset1, dataKey, color }) => {
   const [isMounted, setIsMounted] = useState(false);

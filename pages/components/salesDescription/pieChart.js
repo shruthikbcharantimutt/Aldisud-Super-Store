@@ -23,28 +23,28 @@ const PieChartGraph = ({ returnedOrdersCount, totalOrders }) => {
   }
   return (
     <>
-    <p>Total Number of orders in 2022: {totalOrders} </p>
-     <PieChart width={400} height={400}>
-      <Pie
-        data={data}
-        cx={200}
-        cy={200}
-        innerRadius={60}
-        outerRadius={80}
-        fill="#8884d8"
-        paddingAngle={5}
-        dataKey="value"
-        label
-      >
-        {data.map((entry, index) => (
-          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-        ))}
-        <Tooltip />
-      </Pie>
-    </PieChart>
-     
+      <h1>Chart representing number of orders retuned for Year 2022 </h1>
+      <PieChart width={400} height={400}>
+        <title></title>
+        <Pie
+          data={data}
+          cx={200}
+          cy={200}
+          innerRadius={60}
+          outerRadius={80}
+          fill="#8884d8"
+          paddingAngle={5}
+          dataKey="value"
+          label
+        >
+          {data.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          ))}
+          <Tooltip />
+        </Pie>
+      </PieChart>
+      <p>Total Number of orders in 2022: {totalOrders} </p>
     </>
-   
   );
 };
 
